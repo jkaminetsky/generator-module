@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Generates NPM modules with tooling and builds",
   "scripts": {
+    "compile": "gulp compile",
     "test": "gulp test"
   },
   "repository": {
