@@ -10,9 +10,7 @@ var gulp = require('gulp'),
 
     // arguments
     jshintOut = args.jshintOut,
-    fileToLint = args.file,
-    serverPath = './src',
-    webBuildPath = serverPath + '/public/build';
+    fileToLint = args.file;
 
 require('gulp-help')(gulp);
 
@@ -21,7 +19,7 @@ gulp.task('compile', 'Builds the app', function (cb) {
 });
 
 gulp.task('webpack', 'Runs webpack build', function (cb) {
-    del(webBuildPath + '/**/*', function (err) {
+    del('generators/**/*', function (err) {
         if (err) {
             process.stderr.write(err);
             cb();

@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/generators/app/index.js',
+    entry: './src/generators/app',
     output: {
         path: './generators/app',
         filename: 'index.js'
