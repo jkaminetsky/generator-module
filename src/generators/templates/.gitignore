@@ -1,0 +1,15 @@
+.DS_Store
+
+*.swp
+*.swo
+*.swn
+
+*.db
+
+*.log
+
+node_modules/
+bower_components/
+
+build/
+src/public/build/
