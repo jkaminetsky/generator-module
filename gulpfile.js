@@ -1,12 +1,11 @@
 var gulp = require('gulp'),
+    babel = require('gulp-babel'),
     jshint = require('gulp-jshint'),
     runSequence = require('run-sequence'),
     args = require('yargs').argv,
     del = require('del'),
     stylish = require('jshint-stylish'),
     tapStream = require('tap-stream-helpers').tapStream,
-    webpack = require('webpack'),
-    webpackConfig = require('./webpack.config'),
 
     // arguments
     jshintOut = args.jshintOut,
@@ -15,16 +14,14 @@ var gulp = require('gulp'),
 require('gulp-help')(gulp);
 
 gulp.task('compile', 'Builds the app', function (cb) {
-    runSequence('webpack', cb);
-});
-
-gulp.task('webpack', 'Runs webpack build', function (cb) {
-    del('generators/**/*', function (err) {
+    del('generators/app/**/*', function (err) {
         if (err) {
             process.stderr.write(err);
             cb();
         } else {
-            webpack(webpackConfig, cb);
+            return gulp.src('src/generators/app/index.js')
+                .pipe(babel())
+                .pipe(gulp.dest('generators/app'));
         }
     });
 });
@@ -34,19 +31,19 @@ gulp.task('test', 'Runs all tests and linters', function (cb) {
 });
 
 /**
- * To lint (jshint) an individual file:
- * gulp jshint --file src/www/myfile.js
- * Multiple TAP files can be created for each set of tests
- * To send output to tap file with format build/results/jshint**.tap
- * where ** is an index incremented for each file analyzed:
- * gulp jshint --jshintOut build/results/jshint
- */
+* To lint (jshint) an individual file:
+* gulp jshint --file src/www/myfile.js
+* Multiple TAP files can be created for each set of tests
+* To send output to tap file with format build/results/jshint**.tap
+* where ** is an index incremented for each file analyzed:
+* gulp jshint --jshintOut build/results/jshint
+*/
 
 gulp.task(
     'jshint',
     'Lints all javascript source files to determine if they match coding standards, using jshint.',
     function () {
-        var srcToLint = ['**/*.js', '!node_modules/**/*'];
+        var srcToLint = ['src/**/*.js', '!node_modules/**/*'];
 
         srcToLint = fileToLint || srcToLint;
 
@@ -77,4 +74,5 @@ gulp.task(
         options: {
             file: 'A specific file to lint.'
         }
-    });
+    }
+);

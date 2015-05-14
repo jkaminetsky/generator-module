@@ -12,4 +12,4 @@ node_modules/
 bower_components/
 
 build/
-generators/
+generators/app/
