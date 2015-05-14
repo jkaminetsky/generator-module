@@ -20,7 +20,7 @@ gulp.task('compile', 'Builds the app', function (cb) {
             cb();
         } else {
             return gulp.src('src/generators/app/index.js')
-                .pipe(babel())
+                .pipe(babel({ optional: 'runtime' }))
                 .pipe(gulp.dest('generators/app'));
         }
     });
