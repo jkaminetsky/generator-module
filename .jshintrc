@@ -89,6 +89,8 @@
                         "module": true,
                         "describe": true,
                         "it": true,
+                        "expect": true,
+                        "jest": true,
                         "setTimeout": true,
                         "clearTimeout": true,
                         "setInterval": true,
