@@ -1,10 +1,13 @@
 module.exports = function (config) {
     config.set({
         browsers: ['PhantomJS'],
-        frameworks: ['jasmine'],
+        frameworks: ['jasmine', 'commonjs'],
         files: [
             'test/**/*-spec.js'
         ],
-        singleRun: true
+        singleRun: true,
+        preprocessors: {
+            '**/*.js': ['commonjs']
+        }
     });
 };
