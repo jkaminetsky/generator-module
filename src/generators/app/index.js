@@ -1,4 +1,4 @@
-var generators = require('yeoman-generator');
+/*var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
     configuring: function () {
@@ -10,9 +10,9 @@ module.exports = generators.Base.extend({
             { title: 'writing ${EDITORCONFIG}' }
         );
     }
-});
+});*/
 
-/*import { Base } from 'yeoman-generator';
+import { Base } from 'yeoman-generator';
 
 const EDITORCONFIG = '.editorconfig';
 const JSHINTRC = '.jshintrc';
@@ -23,12 +23,14 @@ export default class ModuleGenerator extends Base {
     constructor(...args) {
         super(...args);
 
+        this.sourceRoot(__dirname + '/../templates');
+
         // Configure Lodash templating so it ignores interpolation markers in
         // ES6 template strings.
         //this._.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
     }
 
-    get configuring() {
+    configuring() {
         this.fs.copyTpl(
           this.templatePath(EDITORCONFIG),
           this.destinationPath(EDITORCONFIG),
@@ -47,4 +49,4 @@ export default class ModuleGenerator extends Base {
           { title: 'writing ${GITIGNORE}' }
         );
     }
-}*/
+}
