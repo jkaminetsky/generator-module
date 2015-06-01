@@ -6,8 +6,7 @@ var gulp = require('gulp'),
     del = require('del'),
     stylish = require('jshint-stylish'),
     tapStream = require('tap-stream-helpers').tapStream,
-    jest = require('gulp-jest'),
-    test = require('yeoman-generator'),
+    karma = require('gulp-karma'),
 
     // arguments
     jshintOut = args.jshintOut,
@@ -32,23 +31,11 @@ gulp.task('test', 'Runs all tests and linters', function (cb) {
     runSequence(['jshint', 'jest'], cb);
 });
 
-gulp.task('jest', 'Run JS tests', function () {
-    /*return gulp.src('tests').pipe(jest({
-        scriptPreprocessor: '../node_modules/babel-jest',
-        unmockedModulePathPatterns: [
-            'node_modules/react'
-        ],
-        testDirectoryName: 'spec',
-        testPathIgnorePatterns: [
-            'node_modules',
-            'spec/support'
-        ],
-        moduleFileExtensions: [
-            'js',
-            'json',
-            'react'
-        ]
-    }));*/
+gulp.task('karma', 'Run JS tests', function () {
+    return gulp.src('test/spec/**/*-spec.js')
+        .pipe(karma({
+            configFile: 'karma.conf.js'
+        }));
 });
 
 /**
