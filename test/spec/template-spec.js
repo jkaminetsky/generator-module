@@ -1,19 +1,12 @@
 var path = require('path');
-var helpers = require('yeoman-generator').test;
+var yo = require('yeoman-generator');
 
 describe('templates', function () {
-    it('create files', function () {
-        helpers.run(path.join( __dirname, '../../generators/app'))
-            .inDir(path.join( __dirname, './tmp'))  // Clear the directory and set it as the CWD
+    it('create files', function (done) {
+        yo.test.run(path.join( __dirname, '../../generators/app'))
             .on('end', function () {
-                console.log('end');
-                expect(1).toEqual(1);
+                yo.assert.file(['.gitignore', '.jshintrc', '.editorconfig']);
+                done();
             });
-    });
-});
-
-describe('sanity', function () {
-    it('should be there', function () {
-        expect(0).toEqual(1);
     });
 });

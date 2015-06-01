@@ -38,7 +38,10 @@ gulp.task('unit-test', 'Compiles and runs all unit tests', function (done) {
 
 gulp.task('jasmine', 'Run JS tests', function () {
     return gulp.src('test/spec/**/*-spec.js')
-        .pipe(jasmine());
+        .pipe(jasmine())
+        .on('error', function () {
+            process.exit(1);
+        });
 });
 
 /**
