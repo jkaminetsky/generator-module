@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     del = require('del'),
     stylish = require('jshint-stylish'),
     tapStream = require('tap-stream-helpers').tapStream,
-    karma = require('gulp-karma'),
+    jasmine = require('gulp-jasmine'),
 
     // arguments
     jshintOut = args.jshintOut,
@@ -14,28 +14,31 @@ var gulp = require('gulp'),
 
 require('gulp-help')(gulp);
 
-gulp.task('compile', 'Builds the app', function (cb) {
-    del('generators/app/**/*', function (err) {
+gulp.task('compile', 'Builds the app', function (done) {
+    return del('generators/app/**/*', function (err) {
         if (err) {
             process.stderr.write(err);
-            cb();
+            done();
         } else {
-            return gulp.src('src/generators/app/index.js')
+            gulp.src('src/generators/app/index.js')
                 .pipe(babel({ optional: 'runtime' }))
                 .pipe(gulp.dest('generators/app'));
+            done();
         }
     });
 });
 
-gulp.task('test', 'Runs all tests and linters', function (cb) {
-    runSequence(['jshint', 'jest'], cb);
+gulp.task('test', 'Runs all tests and linters', function (done) {
+    runSequence(['jshint', 'unit-test'], done);
 });
 
-gulp.task('karma', 'Run JS tests', function () {
+gulp.task('unit-test', 'Compiles and runs all unit tests', function (done) {
+    runSequence('compile', 'jasmine', done);
+});
+
+gulp.task('jasmine', 'Run JS tests', function () {
     return gulp.src('test/spec/**/*-spec.js')
-        .pipe(karma({
-            configFile: 'karma.conf.js'
-        }));
+        .pipe(jasmine());
 });
 
 /**
